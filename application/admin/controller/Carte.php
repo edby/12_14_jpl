@@ -72,6 +72,21 @@ class Carte extends BaseAdmin
             echo '0';
         }
     }
+    public function delete()
+    {
+        $id=input('id');
+        $re=\db("carte")->where("cid=$id")->find();
+        if($re){
+            $del=db("carte")->where("cid=$id")->delete();
+            $res=db("carte")->where("pid=$id")->select();
+            if($res){
+                $dels=db("carte")->where("pid=$id")->delete();
+            }
+            echo '0';
+        }else{
+            echo '1';
+        }
+    }
 
 
 

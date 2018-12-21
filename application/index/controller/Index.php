@@ -1,10 +1,59 @@
 <?php
 namespace app\index\controller;
 
-class Index
+class Index  extends BaseHome
 {
     public function index()
     {
-        return '<style type="text/css">*{ padding: 0; margin: 0; } .think_default_text{ padding: 4px 48px;} a{color:#2E5CD5;cursor: pointer;text-decoration: none} a:hover{text-decoration:underline; } body{ background: #fff; font-family: "Century Gothic","Microsoft yahei"; color: #333;font-size:18px} h1{ font-size: 100px; font-weight: normal; margin-bottom: 12px; } p{ line-height: 1.6em; font-size: 42px }</style><div style="padding: 24px 48px;"> <h1>:)</h1><p> ThinkPHP V5<br/><span style="font-size:30px">十年磨一剑 - 为API开发设计的高性能框架</span></p><span style="font-size:22px;">[ V5.0 版本由 <a href="http://www.qiniu.com" target="qiniu">七牛云</a> 独家赞助发布 ]</span></div><script type="text/javascript" src="https://tajs.qq.com/stats?sId=9347272" charset="UTF-8"></script><script type="text/javascript" src="https://e.topthink.com/Public/static/client.js"></script><think id="ad_bd568ce7058a1091"></think>';
+        //用户信息
+        $uid=session('userid');
+        $re=db("user")->where("uid=$uid")->find();
+        $this->assign("re",$re);
+
+        
+        
+        return $this->fetch();
+    }
+    public function hello()
+    {
+        //友情链接
+        $link=db("lb")->where("fid=1")->paginate(12);
+        $this->assign("link",$link);
+
+        //用户信息
+        $uid=session('userid');
+        $re=db("user")->where("uid=$uid")->find();
+        $this->assign("re",$re);
+
+        //联盟公告
+        $news=db("news")->where("status=1 and groom=1")->order(['sort'=>'asc','id'=>'desc'])->paginate(3);
+        $this->assign("news",$news);
+
+        //游戏规则
+        $game=db("about")->where("id=1")->find();
+        $this->assign("game",$game);
+
+        //级别详情
+        $level=db("level")->order("level desc")->select();
+        $this->assign("level",$level);
+
+        $rea=db("about")->where("id=3")->find();
+        $this->assign("rea",$rea);
+
+        //会员信息
+        $uid=session("userid");
+        $reu=db("user")->where("uid=$uid")->find();
+        $this->assign("reu",$reu);
+
+        $le=$reu['level'];
+        $les=($le+1);
+        $rel=db("level")->where("level=$les")->find();
+        $this->assign("rel",$rel);
+        $this->assign("les",$les);
+
+        //升级信息
+        $apply=db("apply")->where(array('p_id'=>$uid))->paginate(3);
+        $this->assign("apply",$apply);
+        return $this->fetch();
     }
 }

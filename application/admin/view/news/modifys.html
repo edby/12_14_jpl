@@ -34,7 +34,7 @@
         <div class="row">
           <div class="col-xs-12">
             <div class="col-sm-10 col-sm-offset-1">
-              <form id="logoForm" class="form-horizontal" action="__URL__/usave" method="post" enctype="multipart/form-data">
+              <form id="logoForm" class="form-horizontal" action="{:url('News/usave')}" method="post" enctype="multipart/form-data">
                 <div class="row">
                   <div class="col-sm-7">
                     <div class="widget-box transparent">
@@ -50,21 +50,8 @@
                             </div>
                           </div>
 
-                          <div class="form-group">
-                              <label class="col-sm-2 control-label no-padding-right" for="">所属分类</label>
-                            <div class="col-sm-2">
-                              <select class="form-control" name="fid" >
-                                {volist name="res" id="v"}
-                                <option {if condition="$re.fid eq $v.ty_id"}selected{/if} value="{$v.ty_id}">{$v.ty_name}</option>
-                               {/volist}
-                              </select>
-                            </div> 
-                          
-                            
-
-                           
-                           
-                           <label class="col-sm-2 control-label no-padding-right" for="">状态</label>
+                          <div class="form-group">                                                                                                                                
+                          <label class="col-sm-2 control-label no-padding-right" for="">状态</label>
                             <div class="col-sm-2">
                               <label style="padding-top: 8px">
                                 <input name="status" class="ace ace-switch ace-switch-6" type="checkbox"{if condition="$re.status eq 1"}checked{/if} />
@@ -159,20 +146,7 @@
     </div>
   </div><!-- /.main-content -->
 
-  <div class="footer">
-  <div class="footer-inner">
-    <div class="footer-content">
-						<span class="bigger-110">
-							<span class="blue bolder">Ace</span>
-							朵朵科技CMS &copy; 2018-2020
-						</span>
-
-      &nbsp; &nbsp;
-      <a href="http://www.dd371.com" target="_blank">技术支持: 朵朵科技</a>
- 
-    </div>
-  </div>
-</div>
+ {include file="public:footer"}
 
 <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
   <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>

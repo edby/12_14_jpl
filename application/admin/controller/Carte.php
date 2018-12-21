@@ -14,7 +14,7 @@ class Carte extends BaseAdmin
     }
     public function add()
     {
-        $res=\db("carte")->where("pid=0")->select();
+        $res=\db("carte")->where("pid=0")->order("c_sort asc")->select();
         $this->assign("res",$res);
         
         return $this->fetch();

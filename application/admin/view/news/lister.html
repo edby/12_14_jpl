@@ -22,8 +22,8 @@
             <i class="ace-icon fa fa-home home-icon"></i>
             <a href="{:url('Index/index')}">首页</a>
           </li>
-          <li class="active">新闻管理</li>
-          <li class="active">新闻列表</li>
+          <li class="active">联盟公告</li>
+          <li class="active">公告列表</li>
         </ul><!-- /.breadcrumb -->
 
       </div>
@@ -49,35 +49,15 @@
                 </button>
                 </div>
 
-                <!-- <div class="col-sm-8 clearfix">
-                  <form class="form-inline pull-right" action="">
-                    <div class="form-group">
-                      <div class="input-group">
-									<span class="input-group-addon">
-											<i class="fa fa-th-list"></i>
-										</span>
-                        <select class="form-control" name="" id="">
-                          <option selected value="">分类</option>
-                          <option value="">asdasd</option>
-                          <option value="">asdasd</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <div class="input-group">
-									<span class="input-group-addon">
-											<i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
-										</span>
-                        <input type="text" class="form-control" value="" placeholder="点击选择日期范围" name="date-range-picker"
-                               id="id-date-range-picker-1">
-                      </div>
-                    </div>
+                 <div class="col-sm-8 clearfix">
+                  <form class="form-inline pull-right" action="{:url('News/lister')}">
+                
                     <div class="form-group">
                       <div class="input-group">
 									<span class="input-group-addon">
 										<i class="ace-icon fa fa-check"></i>
 									</span>
-                        <input type="text" name="key" id="key" class="form-control search-query" value="" placeholder="请输入需查询的关键字">
+                        <input type="text" name="key"  class="form-control search-query" value="{$title}" placeholder="请输入需查询的关键字">
                         <span class="input-group-btn">
 										<button type="submit" class="btn btn-info btn-sm ajax-search-form">
 											<span class="ace-icon fa fa-search icon-on-right bigger-120"></span> 搜索
@@ -86,7 +66,7 @@
                       </div>
                     </div>
                   </form>
-                </div> -->
+                </div>
                 </div>
               </div>
               <table class="table table-bordered table-hover">
@@ -101,16 +81,16 @@
                   <th>ID</th>
                   <th class="hidden-480">排序</th>
                   <th>标题</th>
-                   <th class="hidden-480" style="width:5%;">分类</th>
+               
                   <th class="hidden-480" style="width:25%;">简介</th>
-                  <th class="hidden-480">缩略图</th>
+                
                   <th class="hidden-480">发布时间</th>
                   <th>状态</th>
                   <th>推荐</th>
                   <th style="border-right:#ddd solid 1px;">操作</th>
                 </tr>
                 </thead>
-                <form id="sortForm" action="__URL__/sort" method="post"> 
+                <form id="sortForm" action="{:url('News/sort')}" method="post"> 
                 <tbody>
                 {volist name="list" id="v"}
                 <tr class="ace-thumbnails">
@@ -122,16 +102,9 @@
                   <td><span class="badge badge-grey">{$v.id}</span></td>
                   <td class="hidden-480"><input class="input-small" type="number" name="{$v.id}" value="{$v.sort}"></td>
                   <td>{$v.title}</td>
-                  <td class="hidden-480">{$v.ty_name}</td> 
+                
                   <td class="hidden-480">{:strip_tags(mb_substr($v['marray'],0,80,'utf8'))}</td>
-                  <td class="ace-thumbnails hidden-480">
-                    <li><a href="__IMG__/{$v.image}" data-rel="colorbox">
-                      <img width="80" height="80" alt="150x150" src="{$v.image}"/>
-                      <div class="text">
-                        <div class="inner">点击放大</div>
-                      </div>
-                    </a></li>
-                  </td>
+                
                   <td class="hidden-480">{$v.time|date="Y-m-d H:i:s",###}</td>
                   <td>
                     <label>
@@ -169,19 +142,7 @@
     </div>
   </div><!-- /.main-content -->
 
-  <div class="footer">
-  <div class="footer-inner">
-    <div class="footer-content">
-						<span class="bigger-110">
-							<span class="blue bolder">Ace</span>
-							朵朵科技CMS &copy; 2018-2020
-						</span>
-
-      &nbsp; &nbsp;
-      <a href="http://www.dd371.com" target="_blank">技术支持: 朵朵科技</a>
-    </div>
-  </div>
-</div>
+{include file="public:footer"}
 
 <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
   <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>

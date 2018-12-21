@@ -110,8 +110,10 @@ class Apply extends BaseHome
         $this->assign("list",$list);
         $cou=count($list);
         $this->assign("cou",$cou);
+     //   var_dump($list);exit;
         if($list){
-            $name=$list[$reu['level']];
+          //  $aa=($reu['level']-1);
+            $name=$list[0];
         }else{
             $name['le']="系统管理员";
             $name['id']=0;

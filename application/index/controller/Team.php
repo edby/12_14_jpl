@@ -145,8 +145,8 @@ class Team extends BaseHome
                 $data['u_wx']=input('u_wx');
                 $data['u_alipay']=input('u_alipay');
                 $data['u_phone']=input('u_phone');
-                $data['u_pwd']=md5(input('u_name'));
-                $data['u_pwds']=md5(input('u_name'));
+                $data['u_pwd']=md5(input('u_pwd'));
+                $data['u_pwds']=md5(input('u_pwds'));
                 $data['pid']=$re['uid'];
                 $data['level']=1;
                 $data['u_ztime']=time();

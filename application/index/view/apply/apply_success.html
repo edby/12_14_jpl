@@ -14,6 +14,7 @@
 					</div>
 					<div class="ibox-content">
 						{$re.desc}
+					{if condition="$rea neq ''"}	
 						<p>会员编号: {$rea.u_code}</p>
 						<p>会员名: {$rea.u_name}</p>
 						<p>微信号: {$rea.u_wx}</p>
@@ -22,6 +23,9 @@
 						<p>所需金额:{$rea.money}元</p>
 						<p>请抄写保存</p>
 						<p>进入等待审核阶段</p>
+					{else /}
+						<p>请联系系统管理员进行升级</p>
+					{/if}	
 						<p>
 							<a class="btn btn-success" href="{:url('Apply/index')}">确定</a>
 						</p>

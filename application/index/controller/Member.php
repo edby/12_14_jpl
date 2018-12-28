@@ -13,8 +13,14 @@ class Member extends BaseHome
     public function change()
     {
         $id=input('id');
+        $uid=session("userid");
+        $reu=db("user")->where("uid=$uid")->find();
+        $gold=$reu['gold'];
         $re=db("user")->where("uid=$id")->find();
         if($re){
+          if($gold < 200){
+              echo '1';exit;
+          } else{
             $data['u_jtime']=\time();
             $data['u_status']=1;
             $res=db("user")->where("uid=$id")->update($data);
@@ -24,9 +30,13 @@ class Member extends BaseHome
             $datas['time']=time();
             db("user_log")->insert($datas);
 
-            $this->redirect("index");
+            $ress=db("user")->where("uid=$uid")->setDec("gold",200);
+
+            echo '2';
+          } 
+           
         }else{
-            $this->redirect("index");
+            echo '0';
         }
     }
 
@@ -47,22 +57,33 @@ class Member extends BaseHome
     {
         $id=input('id');
         $re=db("apply")->where("id=$id")->find();
-        if($re){
-            $data['status']=1;
-            $data['q_time']=time();
-            $res=db("apply")->where("id=$id")->update($data);
+        $money=input('money');
+        $uids=session("userid");
+        $reus=db("user")->where("uid=$uids")->find();
+        $gold=$reus['gold'];
+        if($gold >= $money){
+            if($re){
+                $data['status']=1;
+                $data['q_time']=time();
+                $res=db("apply")->where("id=$id")->update($data);
+    
+                $uid=$re['u_id'];
+                $level=$re['levels'];
+                $reu=db("user")->where("uid=$uid")->setField("level",$level);
 
-            $uid=$re['u_id'];
-            $level=$re['levels'];
-            $reu=db("user")->where("uid=$uid")->setField("level",$level);
-            if($res && $reu){
-                echo '0';
+                $ress=db('user')->where("uid=$uids")->setDec("gold",$money);
+                if($res && $reu){
+                    echo '0';
+                }else{
+                    echo '2';
+                }
             }else{
-                echo '2';
+                echo '1';
             }
         }else{
-            echo '1';
+            echo '3';
         }
+       
     }
     public function pwd()
     {

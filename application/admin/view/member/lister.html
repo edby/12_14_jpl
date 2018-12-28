@@ -52,6 +52,7 @@
                   <th class="hidden-480">微信号</th>
                   <th class="hidden-480">支付宝号</th>
                   <th class="hidden-480">推荐人</th>
+                  <th class="hidden-480">注册币</th>
                   <th class="hidden-480">注册时间</th>
                   <th class="hidden-480">是否激活</th>
                   <th class="hidden-480">激活时间</th>
@@ -71,10 +72,14 @@
                   <td class="hidden-480">{$v.u_alipay}</td>
                   <?php $pid=$v['pid']; $user=db("user")->where("uid=$pid")->find();?>
                   <td class="hidden-480">{$user['u_name']}</td>
+                  <td>{$v.gold}<a class="btn btn-success btn-white btn-bold" href="javascript:;" onclick="add_integz({$v.uid})">
+                      <i class="ace-icon fa fa-plus icon-only"></i>
+                  </a></td>
                   <td class="hidden-480">{$v.u_ztime|date="Y-m-d H:i:s",###}</td>
                   <td>
                      <div onclick="change({$v.uid},{$v.u_status})"> {if condition="$v.u_status eq 1" }<a  class="btn btn-xs btn-info">是</a> {else /} <a class="btn btn-xs btn-danger">否</a>{/if}</div>
                   </td>
+                  
                   <td class="hidden-480">{if condition="$v.u_jtime neq '' "}{$v.u_jtime|date="Y-m-d H:i:s",###}{/if}</td>
                   <td>
                     
@@ -147,6 +152,36 @@
           })
 		  });
 	    }
+
+      function add_integz(id) {
+        layer.prompt({title: '请输入要充值的注册币', formType: 3}, function (text, index) {
+
+            var n = /^[1-9]\d*$/;
+            if (!n.test(text)) {
+                layer.alert('请输入正确的充值积分');
+                return false;
+            } else {
+                $.ajax({
+                    type: "post",
+                    url: "__URL__/add_integz",
+                    data: {id: id, integz: text},
+                    datatype: "text",
+                    success: function (re) {
+                        if (re == 1) {
+                            layer.close(index);
+                            layer.msg("充值成功");
+                            location.reload();
+                        } else {
+                            layer.close(index);
+                            layer.msg("系统繁忙，请稍后再试");
+                            location.reload();
+                        }
+
+                    }
+                })
+            }
+        });
+    }
 		</script>
 <script>
 function change(id,status){

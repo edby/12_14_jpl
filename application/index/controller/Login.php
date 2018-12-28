@@ -33,6 +33,7 @@ class Login extends Common
      public function out(){
         session("userid",null);
         session("pwd",null);
+        session("phone",null);
         $this->redirect('Login/index');
     }
     public function forget()

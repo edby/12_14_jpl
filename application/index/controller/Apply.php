@@ -76,31 +76,37 @@ class Apply extends BaseHome
         if($re1){
             $list[0]['le']=$re1['u_name'];
             $list[0]['id']=$re1['uid'];
+            $list[0]['level']=$re1['level'];
             $pid2=$re1['pid'];
             $re2=db("user")->where("uid=$pid2")->find();
             if($re2){
                 $list[1]['le']=$re2['u_name'];
                 $list[1]['id']=$re2['uid'];
+                $list[1]['level']=$re2['level'];
                 $pid3=$re2['pid'];
                 $re3=db("user")->where("uid=$pid3")->find();
                 if($re3){
                     $list[2]['le']=$re3['u_name'];
                     $list[2]['id']=$re3['uid'];
+                    $list[2]['level']=$re3['level'];
                     $pid4=$re3['pid'];
-                    $re4=db("user")->where("uid=$pid3")->find();
+                    $re4=db("user")->where("uid=$pid4")->find();
                     if($re4){
                         $list[3]['le']=$re4['u_name'];
                         $list[3]['id']=$re4['uid'];
+                        $list[3]['level']=$re4['level'];
                         $pid5=$re4['pid'];
                         $re5=db("user")->where("uid=$pid4")->find();
                         if($re5){
                             $list[4]['le']=$re5['u_name'];
                             $list[4]['id']=$re5['uid'];
+                            $list[4]['level']=$re5['level'];
                             $pid6=$re5['pid'];
                             $re6=db("user")->where("uid=$pid6")->find();
                             if($re6){
                                 $list[5]['le']=$re6['u_name'];
                                 $list[5]['id']=$re6['uid'];
+                                $list[5]['level']=$re6['level'];
                             }
                         }
                     }
@@ -110,19 +116,35 @@ class Apply extends BaseHome
         $this->assign("list",$list);
         $cou=count($list);
         $this->assign("cou",$cou);
-     //   var_dump($list);exit;
+      
         if($list){
-          //  $aa=($reu['level']-1);
-            $name=$list[0];
+            $levels=($reu['level']+1);
+           
+            $k=-1;
+            $num=(count($list));
+            do{
+                $k++;
+             //  if($k >0){
+                if($k>=$num){
+                    $name['le']="系统管理员";
+                    $name['id']=0;
+                    break;
+                }
+             //  } 
+                
+                $name=$list[$k];
+                
+            }while($list[$k]['level'] < $levels);
+
         }else{
             $name['le']="系统管理员";
             $name['id']=0;
         }
 
-       
+      // var_dump($name);
 
         $this->assign("name",$name);
-       // var_dump($list);exit;
+
         return $this->fetch();
     }
     public function save()

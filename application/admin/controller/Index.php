@@ -74,36 +74,5 @@ class Index extends BaseAdmin
 
         $this->assign("system_config", $system_config);
     }
-    function modify(){
-        if (! defined('CONTROLLER_NAME')) {
-            define('CONTROLLER_NAME', $this->request->controller());
-        }
-        if (! defined('ACTION_NAME')) {
-            define('ACTION_NAME', $this->request->action());
-        }
-        $id=\session('uid');
-        $re=db("Admin")->where("id=$id")->find();
-        $this->assign("re",$re);
-        return view('modify');
-    }
-    function save(){
-        $ob=db("Admin");
-        $old_pwd=md5(input('old_pwd'));
-        $id=input('id');
-        $re=$ob->where("id=$id and pwd='$old_pwd'")->find();
-        if($re){
-            $data['pwd']=md5(input('pwd'));
-            $res=$ob->where("id=$id")->update($data);
-            if($res){
-                $this->success("修改成功,请重新登录！",url('Login/logout'));
-            }else{
-                $this->error("修改失败！");
-            }
-        }else{
-            $this->error("原密码错误！");
-        }
-
-        
-    }
 
 }

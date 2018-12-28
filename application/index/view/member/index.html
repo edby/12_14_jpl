@@ -56,9 +56,27 @@
 	</div>
 	<script type="text/javascript">
 		function dels(id){
-			layer.confirm('你确定激活吗？', {icon: 3}, function(index){
+			layer.confirm('你确定花费200注册币激活吗？', {icon: 3}, function(index){
 		    layer.close(index);
-		    window.location.href="__URL__/change/id/"+id;
+			$.ajax({
+				type:"post",
+				url:"{:url('Member/change')}",
+				data:{id:id},
+				dataType:"text",
+				success:function(re)
+				{
+                   if(re == 1){
+					   layer.msg("注册币不足，请联系系统管理员充值");return false;
+				   }
+				   if(re == 2){
+					   layer.msg("激活成功");location.reload();
+				   }
+				   if(re == 0){
+					location.reload();
+				   }
+				}
+			})
+		  //  window.location.href="__URL__/change/id/"+id;
 		  });
 	    }
 		</script>

@@ -14,6 +14,7 @@ class BaseHome extends Controller
         }
         $sys=db('sys')->where("id=1")->find();
         $this->assign("sys",$sys);
+       
         
     }
 }

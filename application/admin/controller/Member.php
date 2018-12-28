@@ -100,6 +100,22 @@ class Member extends BaseAdmin
         }
 
     }
+    public function add_integz()
+    {
+        $id=input('id');
+        $re=db("user")->where("uid=$id")->find();
+        if($re){
+           $money=input('integz');
+           $res=db("user")->where("uid=$id")->setInc("gold",$money);
+           if($res){
+               echo '1';
+           }else{
+               echo '2';
+           }
+        }else{
+            echo '0';
+        }
+    }
     public function add()
     {
         $data=db("user")->field("u_name")->select();

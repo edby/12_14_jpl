@@ -89,9 +89,63 @@
 					<span class="nav-label">站内通信</span>
 				</a>
 			</li>
+			<li>
+				<a class="J_menuItem" href="{:url('Index/gold')}">
+					<i class="fa fa-money"></i>
+					<span class="nav-label">注册币转账</span>
+				</a>
+			</li>
+			<!-- <li>
+				<a class="J_menuItem" href="{:url('Index/phone')}">
+					<i class="fa fa-money"></i>
+					<span class="nav-label">手机端</span>
+				</a>
+			</li> -->
 		</ul>
 	</div>
 </nav>
+<script>
+	$(function() {
+
+var type = {$type};
+if(type){	
+	if(type == 1){
+		$('.J_iframe').attr('src', "{:url('News/index')}")
+	}
+	if(type == 2){
+		$('.J_iframe').attr('src', "{:url('Team/index')}")
+	}
+	if(type == 3){
+		$('.J_iframe').attr('src', "{:url('Problem/index')}")
+	}
+	if(type == 4){
+		$('.J_iframe').attr('src', "{:url('Game/index')}")
+	}
+	if(type == 5){
+		$('.J_iframe').attr('src', "{:url('Index/gold')}")
+	}
+	if(type == 6){
+		$('.J_iframe').attr('src', "{:url('Member/notes')}")
+	}
+	if(type == 7){
+		$('.J_iframe').attr('src', "{:url('Member/index')}")
+	}
+	if(type == 8){
+		$('.J_iframe').attr('src', "{:url('User/index')}")
+	}
+	if(type == 9){
+		$('.J_iframe').attr('src', "{:url('Email/index')}")
+	}
+	if(type == 10){
+		$('.J_iframe').attr('src', "{:url('Member/notes')}")
+	}
+	if(type == 11){
+		$('.J_iframe').attr('src', "{:url('Auditi/index')}")
+	}
+
+  }
+})
+</script>
 		<!--左侧导航结束-->
 		<!--右侧部分开始-->
 		<div id="page-wrapper" class="gray-bg dashbard-1">
@@ -107,6 +161,7 @@
 							</a>
 						</li>
 					</ul>
+					<a href="{:url('Login/out')}" class="exit-phone-box"><i class="fa fa fa-sign-out"></i>退出登录</a>
 				</nav>
 			</div>
 			<div class="row content-tabs">
@@ -126,7 +181,7 @@
 				 seamless></iframe>
 			</div>
 			<div class="footer">
-	<div class="pull-right">&copy; 2016-<span id="lastYear">2020</span><span style="color:#337ab7;margin-left: 10px;">金柏丽创业联盟平台</span></div>
+	<div class="pull-right">&copy; 2016-<span id="lastYear"></span><span style="color:#337ab7;margin-left: 10px;">金柏丽创业联盟平台</span></div>
 </div>
 		</div>
 		<!--右侧部分结束-->
@@ -180,7 +235,24 @@
 		<!--右侧边栏结束-->
 	</div>
 	</div>
-
+	<style>
+		.exit-phone-box {
+			display: none;
+			position: absolute;
+			right: 0;
+			top: 6px;
+			width: 90px;
+			text-align: center;
+			height: 40px;
+			line-height: 40px;
+			color: #999;
+		}
+		@media screen and (max-width:770px){
+			.exit-phone-box {
+				display: block;
+			}
+		}
+	</style>
 </body>
 
 </html>

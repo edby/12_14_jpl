@@ -1,5 +1,5 @@
 ﻿# Host: localhost  (Version: 5.5.53)
-# Date: 2018-12-21 11:30:36
+# Date: 2018-12-28 20:41:44
 # Generator: MySQL-Front 5.3  (Build 4.234)
 
 /*!40101 SET NAMES utf8 */;
@@ -48,7 +48,7 @@ CREATE TABLE `ddsc_admin` (
 #
 
 /*!40000 ALTER TABLE `ddsc_admin` DISABLE KEYS */;
-INSERT INTO `ddsc_admin` VALUES (1,'admin','8a30ec6807f71bc69d096d8e4d501ade','2018-12-20 08:54:16','2018-12-21 08:53:21','0.0.0.0',0,NULL,NULL);
+INSERT INTO `ddsc_admin` VALUES (1,'admin','b144ef4a51d09eb8878c77bdc4ee8e6e','2018-12-27 14:51:48','2018-12-28 08:47:51','1.192.39.165',0,NULL,NULL);
 /*!40000 ALTER TABLE `ddsc_admin` ENABLE KEYS */;
 
 #
@@ -67,13 +67,14 @@ CREATE TABLE `ddsc_apply` (
   `status` tinyint(3) NOT NULL DEFAULT '0' COMMENT '状态 0待审核 1已审核 2系统驳回',
   `q_time` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='升级申请表';
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='升级申请表';
 
 #
 # Data for table "ddsc_apply"
 #
 
 /*!40000 ALTER TABLE `ddsc_apply` DISABLE KEYS */;
+INSERT INTO `ddsc_apply` VALUES (1,5,0,1,2,'400','1545994426',0,NULL),(2,7,5,1,2,'400','1545997230',1,'1546000114'),(3,7,0,1,2,'400','1545997279',0,NULL);
 /*!40000 ALTER TABLE `ddsc_apply` ENABLE KEYS */;
 
 #
@@ -117,7 +118,7 @@ CREATE TABLE `ddsc_email` (
   `p_status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '收件人是否删除 0否 1是',
   `u_name` varchar(255) DEFAULT NULL COMMENT '发送人姓名',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COMMENT='站内信';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='站内信';
 
 #
 # Data for table "ddsc_email"
@@ -125,6 +126,29 @@ CREATE TABLE `ddsc_email` (
 
 /*!40000 ALTER TABLE `ddsc_email` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ddsc_email` ENABLE KEYS */;
+
+#
+# Structure for table "ddsc_gold"
+#
+
+DROP TABLE IF EXISTS `ddsc_gold`;
+CREATE TABLE `ddsc_gold` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `u_id` int(11) DEFAULT NULL COMMENT '赠送人的id',
+  `p_id` int(11) DEFAULT NULL COMMENT '被赠送人id',
+  `money` int(11) DEFAULT NULL COMMENT '赠送数量',
+  `time` varchar(255) DEFAULT NULL COMMENT '操作时间',
+  `status` tinyint(3) NOT NULL DEFAULT '0' COMMENT '0为 赠送人减少 1为增加',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+#
+# Data for table "ddsc_gold"
+#
+
+/*!40000 ALTER TABLE `ddsc_gold` DISABLE KEYS */;
+INSERT INTO `ddsc_gold` VALUES (1,5,7,10,'1545990652',0),(2,7,5,10,'1545990652',1),(3,5,7,10,'1545993002',0),(4,7,5,10,'1545993002',1);
+/*!40000 ALTER TABLE `ddsc_gold` ENABLE KEYS */;
 
 #
 # Structure for table "ddsc_lb"
@@ -256,7 +280,7 @@ CREATE TABLE `ddsc_sms_code` (
   `code` varchar(255) DEFAULT NULL COMMENT '验证码',
   `time` varchar(255) DEFAULT NULL COMMENT '发送时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='手机验证码';
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='手机验证码';
 
 #
 # Data for table "ddsc_sms_code"
@@ -275,7 +299,7 @@ CREATE TABLE `ddsc_sql` (
   `sql_name` varchar(255) DEFAULT NULL,
   `create_time` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`sql_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='数据库备份';
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='数据库备份';
 
 #
 # Data for table "ddsc_sql"
@@ -332,14 +356,14 @@ CREATE TABLE `ddsc_sys_log` (
   `admin` varchar(255) DEFAULT NULL COMMENT '操作账号',
   `ip` varchar(255) DEFAULT NULL COMMENT 'IP地址',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='系统日志';
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='系统日志';
 
 #
 # Data for table "ddsc_sys_log"
 #
 
 /*!40000 ALTER TABLE `ddsc_sys_log` DISABLE KEYS */;
-INSERT INTO `ddsc_sys_log` VALUES (1,'后台登录','2018-12-21 08:53:21','admin','0.0.0.0');
+INSERT INTO `ddsc_sys_log` VALUES (1,'后台登录','2018-12-21 08:53:21','admin','0.0.0.0'),(2,'后台登录','2018-12-21 15:43:33','admin','0.0.0.0'),(3,'后台登录','2018-12-21 15:48:40','admin','0.0.0.0'),(4,'后台登录','2018-12-24 18:34:06','admin','1.192.38.116'),(5,'后台登录','2018-12-24 18:36:39','admin','1.192.38.116'),(6,'后台登录','2018-12-27 08:45:53','admin','1.192.39.165'),(7,'后台登录','2018-12-27 09:44:28','admin','1.193.66.249'),(8,'后台登录','2018-12-27 09:56:14','admin','1.192.39.165'),(9,'后台登录','2018-12-27 12:55:38','admin','1.193.66.249'),(10,'后台登录','2018-12-27 14:21:03','admin','1.193.66.249'),(11,'后台登录','2018-12-27 14:51:48','admin','1.192.39.165'),(12,'后台登录','2018-12-28 08:47:51','admin','1.192.39.165');
 /*!40000 ALTER TABLE `ddsc_sys_log` ENABLE KEYS */;
 
 #
@@ -361,14 +385,16 @@ CREATE TABLE `ddsc_user` (
   `u_ztime` varchar(255) DEFAULT NULL COMMENT '注册时间',
   `u_jtime` varchar(255) DEFAULT NULL COMMENT '激活时间',
   `level` tinyint(3) NOT NULL DEFAULT '1' COMMENT '等级',
+  `gold` int(11) NOT NULL DEFAULT '0' COMMENT '注册币数量',
   PRIMARY KEY (`uid`)
-) ENGINE=MyISAM AUTO_INCREMENT=63 DEFAULT CHARSET=utf8 COMMENT='会员列表';
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='会员列表';
 
 #
 # Data for table "ddsc_user"
 #
 
 /*!40000 ALTER TABLE `ddsc_user` DISABLE KEYS */;
+INSERT INTO `ddsc_user` VALUES (4,'875242','小五','11111111111','11111111111','11111111111','e10adc3949ba59abbe56e057f20f883e','c33367701511b4f6020ec61ded352059',0,1,'1545875242','1545875242',1,0),(5,'876205','小六','13211111111','1321111','13211111111','e10adc3949ba59abbe56e057f20f883e','c33367701511b4f6020ec61ded352059',4,1,'1545876257','1545876321',1,600),(6,'877491','测试','122243354465','134555555555','12334354355','e10adc3949ba59abbe56e057f20f883e','c33367701511b4f6020ec61ded352059',5,1,'1545877491','1545877491',1,0),(7,'891750','天一','18088888888','18088888888','18088888888','e10adc3949ba59abbe56e057f20f883e','c33367701511b4f6020ec61ded352059',6,1,'1545891750','1545891750',2,1800),(8,'998588','王鹏飞','15939590207','15939590207','15939590207','e10adc3949ba59abbe56e057f20f883e','e10adc3949ba59abbe56e057f20f883e',7,1,'1545998607','1545999522',1,100);
 /*!40000 ALTER TABLE `ddsc_user` ENABLE KEYS */;
 
 #
@@ -382,12 +408,12 @@ CREATE TABLE `ddsc_user_log` (
   `p_id` int(11) DEFAULT NULL COMMENT '被激活人id',
   `time` varchar(255) DEFAULT NULL COMMENT '操作时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='用户激活日志';
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='用户激活日志';
 
 #
 # Data for table "ddsc_user_log"
 #
 
 /*!40000 ALTER TABLE `ddsc_user_log` DISABLE KEYS */;
-INSERT INTO `ddsc_user_log` VALUES (1,0,1,'1545362387');
+INSERT INTO `ddsc_user_log` VALUES (4,0,3,'1545647699'),(5,0,5,'1545876321'),(6,7,8,'1545999522');
 /*!40000 ALTER TABLE `ddsc_user_log` ENABLE KEYS */;

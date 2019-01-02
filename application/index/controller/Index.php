@@ -9,28 +9,8 @@ class Index  extends BaseHome
     public function index()
     {
        
-        if(empty(session('phone'))){
-            if(Request::instance()->isMobile()){
-                session("phone",1);
-                $this->redirect("Index/phone");
-            }
-        }
-        if(\session('phone')){
-            $type=input('type');
-
-            if(empty($type)){
-                $type=0;
-                
-            }
-           
-            //用户信息
-            if($type == 0){
-                $this->redirect("Index/phone");exit;
-            }
-        }else{
-            $type=555;
-        }
-        $this->assign("type",$type);
+        
+       
         $uid=session('userid');
         $re=db("user")->where("uid=$uid")->find();
         $this->assign("re",$re);

@@ -6,7 +6,7 @@ class Member extends BaseHome
     public function index()
     {
         $uid=session("userid");
-        $res=db("user")->where("pid=$uid")->select();
+        $res=db("user")->where("z_id=$uid")->select();
         $this->assign("res",$res);
         return $this->fetch();
     }
@@ -18,9 +18,7 @@ class Member extends BaseHome
         $gold=$reu['gold'];
         $re=db("user")->where("uid=$id")->find();
         if($re){
-          if($gold < 200){
-              echo '1';exit;
-          } else{
+          
             $data['u_jtime']=\time();
             $data['u_status']=1;
             $res=db("user")->where("uid=$id")->update($data);
@@ -30,10 +28,10 @@ class Member extends BaseHome
             $datas['time']=time();
             db("user_log")->insert($datas);
 
-            $ress=db("user")->where("uid=$uid")->setDec("gold",200);
+           
 
             echo '2';
-          } 
+          
            
         }else{
             echo '0';
@@ -61,7 +59,7 @@ class Member extends BaseHome
         $uids=session("userid");
         $reus=db("user")->where("uid=$uids")->find();
         $gold=$reus['gold'];
-        if($gold >= $money){
+       
             if($re){
                 $data['status']=1;
                 $data['q_time']=time();
@@ -71,7 +69,6 @@ class Member extends BaseHome
                 $level=$re['levels'];
                 $reu=db("user")->where("uid=$uid")->setField("level",$level);
 
-                $ress=db('user')->where("uid=$uids")->setDec("gold",$money);
                 if($res && $reu){
                     echo '0';
                 }else{
@@ -80,9 +77,7 @@ class Member extends BaseHome
             }else{
                 echo '1';
             }
-        }else{
-            echo '3';
-        }
+       
        
     }
     public function pwd()

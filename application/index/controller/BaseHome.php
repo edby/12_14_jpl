@@ -8,7 +8,7 @@ use think\Controller;
 class BaseHome extends Controller
 {
     function _initialize(){
-        
+      
         if(empty(session('userid'))){
             $this->redirect("login/index");
         }

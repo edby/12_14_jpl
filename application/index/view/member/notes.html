@@ -34,7 +34,7 @@
 										<td>{$v.time|date="Y-m-d H:i:s",###}</td>
 										<td>{if condition="$v.q_time neq '' "}{$v.q_time|date="Y-m-d H:i:s",###}{/if}</td>
 										<td>{$v.money}</td>
-										<td>第{$v.level}级</td>
+										<td>第{$v.levels}级</td>
 										<td>{if condition="$v.status eq 1"}已经收款 {else /}<a onclick="change({$v.id},{$v.money})">确认升级</a>{/if}</td>
 									</tr>
 								{/volist}	
@@ -59,7 +59,7 @@
 	</div>
 	<script type="text/javascript">
 		function change(id,money){
-			layer.confirm('你确定花费'+money+'注册币升级吗？', {icon: 3}, function(index){
+			layer.confirm('你确定升级吗？', {icon: 3}, function(index){
 		    layer.close(index);
 		    $.ajax({
             type:"post",

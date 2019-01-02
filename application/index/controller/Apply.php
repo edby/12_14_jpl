@@ -96,7 +96,7 @@ class Apply extends BaseHome
                         $list[3]['id']=$re4['uid'];
                         $list[3]['level']=$re4['level'];
                         $pid5=$re4['pid'];
-                        $re5=db("user")->where("uid=$pid4")->find();
+                        $re5=db("user")->where("uid=$pid5")->find();
                         if($re5){
                             $list[4]['le']=$re5['u_name'];
                             $list[4]['id']=$re5['uid'];

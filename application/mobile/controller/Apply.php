@@ -143,16 +143,17 @@ class Apply extends BaseMobile
 
       // var_dump($name);
       $this->assign("name",$name);
-    //   if($name['le'] != '系统管理员'){
-    //     if($list[0]['u_name'] != $name['le']){
-    //         $aa=1;
-    //     }else{
-    //         $aa=0;
-    //     }
-    //   }else{
-    //       $aa=0;
-    //   }
-    //   $this->assign("aa",$aa);
+      if($name['le'] != '系统管理员'){
+        if($list[0]['level'] > $reu['level']){
+            $aa=1;
+        }else{
+            $aa=0;
+        }
+      }else{
+          $aa=0;
+      }
+//   var_dump($aa);
+      $this->assign("aa",$aa);
 
         
 

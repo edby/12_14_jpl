@@ -145,6 +145,17 @@ class Apply extends BaseHome
 
         $this->assign("name",$name);
 
+        if($name['le'] != '系统管理员'){
+            if($list[0]['level'] > $reu['level']){
+                $aa=1;
+            }else{
+                $aa=0;
+            }
+          }else{
+              $aa=0;
+          }
+          $this->assign("aa",$aa);
+
         return $this->fetch();
     }
     public function save()

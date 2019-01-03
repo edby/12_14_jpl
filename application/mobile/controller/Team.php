@@ -354,7 +354,7 @@ class Team extends BaseMobile
         $reu=db("user")->where("uid=$uid")->find();
         if($reu['gold']  > 0){
 
-        $res=db("user")->where("uid=$uid")->setDec("gold",1);
+        
         $pid=input('pid');
         $re=db("user")->where("u_code=$pid")->find();
         if($re){
@@ -377,6 +377,7 @@ class Team extends BaseMobile
                 $data['z_id']=$uid;
                 $rea=db("user")->insert($data);
                 if($rea){
+                    $res=db("user")->where("uid=$uid")->setDec("gold",1);
                     $this->success("注册成功，快去激活吧",url('index'));
                 }else{
                     $this->error("注册失败，请稍后再试",url('index'));

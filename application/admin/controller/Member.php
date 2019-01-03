@@ -5,7 +5,13 @@ class Member extends BaseAdmin
 {
     public function lister()
     {
-        $list=db("user")->order("uid desc")->paginate(10);
+        $keywords=input('key');
+        
+        $map['u_code|u_name']=array('like','%'.$keywords.'%');
+        
+        $this->assign("title",$keywords);
+
+        $list=db("user")->where($map)->order("uid desc")->paginate(10);
         $this->assign("list",$list);
       
         $page=$list->render();

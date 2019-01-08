@@ -116,44 +116,102 @@ class Apply extends BaseHome
         $this->assign("list",$list);
         $cou=count($list);
         $this->assign("cou",$cou);
-      
-        if($list){
-            $levels=($reu['level']+1);
-           
-            $k=-1;
-            $num=(count($list));
-            do{
-                $k++;
-             //  if($k >0){
-                if($k>=$num){
+
+        $data=db("user")->field("uid,u_name,level,pid")->where("uid=$uid")->find();
+        $levels=$data['level']+1;
+     
+        $all=db("user")->where("u_status=1")->select();
+        $i=0;
+        do{
+            $i++;
+            $data=db("user")->where("uid={$data['pid']}")->find();
+            
+            if($data){
+                $reaa[]=$data;
+                $data=db("user")->where("uid={$data['pid']}")->find();
+                $reaa[]=$data;
+            }else{
+                break;
+            }
+            
+            
+        }while($i > 0);
+        
+        $cous=count($reaa);
+        $s=0;
+        do{
+          $s++;
+          if($cous >= $levels){
+            $userz=$reaa[$levels-1];
+            if($userz['level']>=$levels){
+                $name['le']=$userz['u_name'];
+                $name['id']=$userz['uid'];
+                $aa=1;
+                break;
+            }else{
+                $qq=($levels*$s);
+                if($cous >= $qq){
+                    $userz=$reaa[$qq-1];
+                    if($userz['level']>=$levels){
+                        $name['le']=$userz['u_name'];
+                        $name['id']=$userz['uid'];
+                        $aa=0;
+                        break;
+                    }
+                }else{
                     $name['le']="系统管理员";
                     $name['id']=0;
-                    break;
+                    $aa=0;
+                    break; 
                 }
-             //  } 
-                
-                $name=$list[$k];
-                
-            }while($list[$k]['level'] < $levels);
-
-        }else{
-            $name['le']="系统管理员";
-            $name['id']=0;
-        }
-
-      // var_dump($name);
-
-        $this->assign("name",$name);
-
-        if($name['le'] != '系统管理员'){
-            if($list[0]['level'] > $reu['level']){
-                $aa=1;
-            }else{
-                $aa=0;
             }
           }else{
-              $aa=0;
-          }
+            $name['le']="系统管理员";
+            $name['id']=0;
+            $aa=0;
+            break;
+         }
+        }while($s >0 );
+        
+        $this->assign("name",$name);
+      
+    //     if($list){
+    //         $levels=($reu['level']+1);
+           
+    //         $k=-1;
+    //         $num=(count($list));
+    //         do{
+    //             $k++;
+    //          //  if($k >0){
+    //             if($k>=$num){
+    //                 $name['le']="系统管理员";
+    //                 $name['id']=0;
+    //                 break;
+    //             }
+    //          //  } 
+                
+    //             $name=$list[$k];
+                
+    //         }while($list[$k]['level'] < $levels);
+
+    //     }else{
+    //         $name['le']="系统管理员";
+    //         $name['id']=0;
+    //     }
+
+    //   // var_dump($name);
+
+    //     $this->assign("name",$name);
+
+    //     if($name['le'] != '系统管理员'){
+    //         if($list[0]['level'] > $reu['level']){
+    //             $aa=1;
+    //         }else{
+    //             $aa=0;
+    //         }
+    //       }else{
+    //           $aa=0;
+    //       }
           $this->assign("aa",$aa);
 
         return $this->fetch();

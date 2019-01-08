@@ -95,13 +95,82 @@ function makeArr($data,&$res,$id=0,$j=0){
     foreach($data as $v){
         if($v['pid']==$id){
             $temp=$v;
-            // $temp['uid']=$temp['uid'];
-            // $temp['u_name']=$temp['type_image'];
-            // $temp['type_sort']=$temp['type_sort'];
-            // $temp['pid']=$temp['pid'];
+            $temp['uid']=$temp['uid'];
+            $temp['u_name']=$temp['u_name'];
+            $temp['level']=$temp['level'];
+            $temp['pid']=$temp['pid'];
             $temp['i']=$j;
             $res[]=$temp;
             makeArr($data,$res,$v['uid'],$j+1);
         }
     }
  }
+ function makeUser($data,$id)
+ {
+    $temp=findUser($data);
+    var_dump($data);exit;
+    
+    if($temp){
+       $level=$data['level'];
+    //    for($i=0;$i++;$i<2){
+    //        echo 123;exit;
+    //        makeUser($temp,$temp['pid']);
+    //    }
+       $i=0;
+       do{
+        $i++;
+        makeUser($temp,$temp['pid']);
+        
+    }while($i < $level);
+       $levels=$temp['level'];
+      var_dump($temp);exit;
+       if($levels > $level){
+        
+           return $temp;
+       }else{
+           return 0;
+       }
+        
+    }else{
+        return 0;
+    }
+ }
+ function findUser($data)
+ { 
+   
+    $data=db("user")->where("uid={$data['pid']}")->find();
+    
+     return $data;
+    
+ }
+ function getone($arr,$parent=0,$lev=0){
+	//迭代
+	$task=array($parent);//任务数组
+	$tree=array();//结果数组
+	while (!empty($task)){
+		$flg=false;
+		foreach ($arr as $k=>$v){
+			 
+			if ($v['pid']==$parent) {
+				$tree[]=array(
+						'id'=>$v['uid'],
+						'name'=>$v['u_name'],
+						'lev'=>$lev
+				);
+				array_push($task, $v['uid']);
+				$parent=$v['uid'];
+				$lev=$lev+1;
+				unset($arr[$k]);
+				$flg=true;
+			}
+ 
+		}
+		if ($flg==false) {
+			array_pop($task);
+			$parent=end($task);
+			$lev=$lev-1;
+		}
+	}
+	return $tree;
+ 
+}

@@ -59,6 +59,7 @@ class Apply extends BaseHome
     {
         $uid=session("userid");
         $reu=db("user")->where("uid=$uid")->find();
+        
         $this->assign("reu",$reu);
         if($reu['level'] < 6){
             $les=$reu['level']+1;
@@ -72,7 +73,9 @@ class Apply extends BaseHome
 
         $list=array();
         $pid=$reu['pid'];
+        
         $re1=db("user")->where("uid=$pid")->find();
+     //   var_dump($re1);exit;
         if($re1){
             $list[0]['le']=$re1['u_name'];
             $list[0]['id']=$re1['uid'];
@@ -129,7 +132,12 @@ class Apply extends BaseHome
             if($data){
                 $reaa[]=$data;
                 $data=db("user")->where("uid={$data['pid']}")->find();
-                $reaa[]=$data;
+                if($data){
+                    $reaa[]=$data;
+                }else{
+                    break;
+                }
+               
             }else{
                 break;
             }

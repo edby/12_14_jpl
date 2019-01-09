@@ -59,6 +59,7 @@ class Apply extends BaseMobile
     {
         $uid=session("userid");
         $reu=db("user")->where("uid=$uid")->find();
+       
         $this->assign("reu",$reu);
         if($reu['level'] < 6){
             $les=$reu['level']+1;
@@ -73,6 +74,7 @@ class Apply extends BaseMobile
         $list=array();
         $pid=$reu['pid'];
         $re1=db("user")->where("uid=$pid")->find();
+        
         if($re1){
             $list[0]['le']=$re1['u_name'];
             $list[0]['id']=$re1['uid'];
@@ -129,7 +131,12 @@ class Apply extends BaseMobile
             if($data){
                 $reaa[]=$data;
                 $data=db("user")->where("uid={$data['pid']}")->find();
-                $reaa[]=$data;
+                if($data){
+                    $reaa[]=$data;
+                }else{
+                    break;
+                }
+                
             }else{
                 break;
             }

@@ -122,13 +122,13 @@ class Apply extends BaseHome
 
         $data=db("user")->field("uid,u_name,level,pid")->where("uid=$uid")->find();
         $levels=$data['level']+1;
+
      
         $all=db("user")->where("u_status=1")->select();
         $i=0;
         do{
             $i++;
-            $data=db("user")->where("uid={$data['pid']}")->find();
-            
+            $data=db("user")->where("uid={$data['pid']}")->find();            
             if($data){
                 $reaa[]=$data;
                 $data=db("user")->where("uid={$data['pid']}")->find();
@@ -136,14 +136,13 @@ class Apply extends BaseHome
                     $reaa[]=$data;
                 }else{
                     break;
-                }
-               
+                }               
             }else{
                 break;
-            }
-            
-            
+            }           
         }while($i > 0);
+
+        dump($reaa);exit;
         
         $cous=count($reaa);
         $s=0;
@@ -224,6 +223,7 @@ class Apply extends BaseHome
 
         return $this->fetch();
     }
+  
     public function save()
     {
         $pid=\input('pid');

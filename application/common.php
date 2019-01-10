@@ -143,34 +143,4 @@ function makeArr($data,&$res,$id=0,$j=0){
      return $data;
     
  }
- function getone($arr,$parent=0,$lev=0){
-	//迭代
-	$task=array($parent);//任务数组
-	$tree=array();//结果数组
-	while (!empty($task)){
-		$flg=false;
-		foreach ($arr as $k=>$v){
-			 
-			if ($v['pid']==$parent) {
-				$tree[]=array(
-						'id'=>$v['uid'],
-						'name'=>$v['u_name'],
-						'lev'=>$lev
-				);
-				array_push($task, $v['uid']);
-				$parent=$v['uid'];
-				$lev=$lev+1;
-				unset($arr[$k]);
-				$flg=true;
-			}
  
-		}
-		if ($flg==false) {
-			array_pop($task);
-			$parent=end($task);
-			$lev=$lev-1;
-		}
-	}
-	return $tree;
- 
-}

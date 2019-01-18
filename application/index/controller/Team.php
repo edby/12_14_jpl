@@ -362,9 +362,11 @@ class Team extends BaseHome
         $re=db("user")->where("u_code=$pid")->find();
         if($re){
             $u_name=input('u_name');
+            $u_code=input('u_code');
             $reu=db("user")->where("u_name='$u_name'")->find();
-            if($reu){
-                $this->error("此会员名已存在",url('index'));exit;
+            $rec=db("user")->where("u_code='$u_code'")->find();
+            if($reu || $rec){
+                $this->error("此会员名或会员编号已存在",url('index'));exit;
             }else{
                 $data=array();
                 $data['u_code']=input('u_code');

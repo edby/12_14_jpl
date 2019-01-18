@@ -236,6 +236,11 @@ class Apply extends BaseMobile
        
         $level=db("level")->where("level=$les")->find();
 
+        $re=db("apply")->where("u_id=$uid and levels=$les and status=0")->find();
+        if($re){
+            db("apply")->where("u_id=$uid and levels=$les and status=0")->delete();
+        }
+
         $data['u_id']=$uid;
         $data['p_id']=$pid;
         $data['level']=$reu['level'];
